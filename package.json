@@ -1,0 +1,48 @@
+{
+  "name": "guetzli",
+  "version": "0.0.0",
+  "description": "guetzli wrapper that makes it seamlessly available as a local dependency",
+  "license": "MIT",
+  "repository": "imagemin/guetzli-bin",
+  "author": {
+    "name": "Shogo Sensui",
+    "email": "shogo.sensui@gmail.com",
+    "url": "github.com/1000ch"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "bin": "cli.js",
+  "scripts": {
+    "postinstall": "node lib/install.js",
+    "test": "xo && ava"
+  },
+  "files": [
+    "index.js",
+    "cli.js",
+    "lib"
+  ],
+  "keywords": [
+    "guetzli",
+    "jpeg",
+    "jpg",
+    "img",
+    "image",
+    "compress",
+    "minify",
+    "optimize"
+  ],
+  "dependencies": {
+    "bin-build": "^2.0.0",
+    "bin-wrapper": "^3.0.0",
+    "logalot": "^2.0.0"
+  },
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "bin-check": "^2.0.0",
+    "compare-size": "^1.0.1",
+    "mkdirp": "^0.5.0",
+    "rimraf": "^2.3.2",
+    "xo": "^0.17.0"
+  }
+}
