@@ -8,6 +8,7 @@ const BinBuild = require('bin-build');
 const compareSize = require('compare-size');
 const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
+const pkg = require('../package.json');
 
 const tmp = path.join(__dirname, 'tmp');
 
@@ -21,7 +22,7 @@ test.cb.afterEach(t => {
 
 test.cb('rebuild the guetzli binaries', t => {
 	new BinBuild()
-		.src('https://github.com/google/guetzli/archive/v0.1.tar.gz')
+		.src(`https://github.com/google/guetzli/archive/v${pkg.version}.tar.gz`)
 		.cmd('make')
 		.run(err => {
 			if (err) {
