@@ -27,11 +27,9 @@ test.cb('rebuild the guetzli binaries', t => {
 		.run(err => {
 			if (err) {
 				t.fail(err);
-				t.end();
-				return;
+			} else {
+				t.pass();
 			}
-
-			t.true(fs.statSync(path.join(tmp, 'guetzli')).isFile());
 			t.end();
 		});
 });
