@@ -15,7 +15,7 @@ test.cb('rebuild the guetzli binaries', t => {
 	new BinBuild()
 		.src('https://github.com/google/guetzli/archive/v0.1.tar.gz')
 		.cmd(`mkdir -p ${tmp}`)
-		.cmd(`make && mv ./guetzli ${tmp}`)
+		.cmd(`make && mv guetzli ${tmp}`)
 		.run(err => {
 			t.ifError(err);
 			t.true(fs.existsSync(path.join(tmp, 'guetzli')));
