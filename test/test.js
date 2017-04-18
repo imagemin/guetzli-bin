@@ -1,85 +1,42 @@
 'use strict';
 const fs = require('fs');
 const path = require('path');
-const execFile = require('child_process').execFile;
 const test = require('ava');
+const execa = require('execa');
+const tempy = require('tempy');
 const binCheck = require('bin-check');
 const BinBuild = require('bin-build');
 const compareSize = require('compare-size');
-const mkdirp = require('mkdirp');
-const rimraf = require('rimraf');
-const pkg = require('../package.json');
-
-const tmp = path.join(__dirname, 'tmp');
-
-test.cb.beforeEach(t => {
-	mkdirp(tmp, t.end);
-});
-
-test.cb.afterEach(t => {
-	rimraf(tmp, {disableGlob: true}, t.end);
-});
+const guetzli = require('..');
 
 test.cb('rebuild the guetzli binaries', t => {
+	const tmp = tempy.directory();
+
 	new BinBuild()
-		.src(`https://github.com/google/guetzli/archive/v${pkg.version}.tar.gz`)
+		.src(`https://github.com/google/guetzli/archive/v1.0.1.tar.gz`)
 		.cmd('make')
 		.run(err => {
-			if (err) {
-				t.fail(err);
-			} else {
-				t.pass();
-			}
+			t.ifError(err);
+			t.true(fs.existsSync(path.join(tmp, 'guetzli')));
 			t.end();
 		});
 });
 
-test.cb('return path to binary and verify that it is working', t => {
-	const args = [
-		'-- quality 90',
-		path.join(__dirname, 'fixtures/test.jpg'),
-		path.join(tmp, 'test.jpg')
-	];
-
-	binCheck(require('../'), args, (err, works) => {
-		if (err) {
-			t.fail(err);
-			t.end();
-			return;
-		}
-
-		console.log('return path to binary and verify that it is working');
-		t.pass(works);
-		t.end();
-	});
+test('return path to binary and verify that it is working', async t => {
+	t.true(await binCheck(guetzli, ['--version']));
 });
 
-test.cb('minify a JPG', t => {
+test('minify a JPG', async t => {
+	const tmp = tempy.directory();
 	const src = path.join(__dirname, 'fixtures/test.jpg');
 	const dest = path.join(tmp, 'test.jpg');
 	const args = [
-		'--quality 90',
 		src,
 		dest
 	];
 
-	execFile(require('../'), args, err => {
-		if (err) {
-			t.fail(err);
-			t.end();
-			return;
-		}
+	await execa(guetzli, args);
+	const res = await compareSize(src, dest);
 
-		compareSize(src, dest, (err, res) => {
-			if (err) {
-				t.fail(err);
-				t.end();
-				return;
-			}
-
-			console.log('minify a JPG');
-			t.true(res[dest] < res[src]);
-			t.end();
-		});
-	});
+	t.true(res[dest] < res[src]);
 });
