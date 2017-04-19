@@ -23,8 +23,11 @@ test.cb('rebuild the guetzli binaries', t => {
 		});
 });
 
-test('return path to binary and verify that it is working', async t => {
-	t.true(await binCheck(guetzli, ['--version']));
+test.cb('return path to binary and verify that it is working', t => {
+	binCheck(guetzli, ['--version']).then(result => {
+		t.true(result);
+	});
+	t.end();
 });
 
 test('minify a JPG', async t => {
