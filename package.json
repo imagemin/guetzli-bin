@@ -1,6 +1,6 @@
 {
   "name": "guetzli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "guetzli wrapper that makes it seamlessly available as a local dependency",
   "license": "MIT",
   "repository": "imagemin/guetzli-bin",
