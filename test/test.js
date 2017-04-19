@@ -13,7 +13,7 @@ test.cb('rebuild the guetzli binaries', t => {
 	const tmp = tempy.directory();
 
 	new BinBuild()
-		.src('https://github.com/google/guetzli/archive/v0.1.tar.gz')
+		.src('https://github.com/google/guetzli/archive/v1.0.1.tar.gz')
 		.cmd(`mkdir -p ${tmp}`)
 		.cmd(`make && mv guetzli ${tmp}`)
 		.run(err => {
