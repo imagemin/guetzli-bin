@@ -45,6 +45,7 @@
     "bin-check": "^4.0.1",
     "compare-size": "^3.0.0",
     "execa": "^0.6.3",
+    "executable": "^4.1.0",
     "tempy": "^0.1.0",
     "xo": "*"
   }

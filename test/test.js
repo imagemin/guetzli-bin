@@ -1,5 +1,4 @@
 'use strict';
-const fs = require('fs');
 const path = require('path');
 const test = require('ava');
 const execa = require('execa');
@@ -7,6 +6,7 @@ const tempy = require('tempy');
 const binCheck = require('bin-check');
 const BinBuild = require('bin-build');
 const compareSize = require('compare-size');
+const executable = require('executable');
 const guetzli = require('..');
 
 test.cb('rebuild the guetzli binaries', t => {
@@ -18,7 +18,7 @@ test.cb('rebuild the guetzli binaries', t => {
 		.cmd(`make && mv bin/Release/guetzli ${tmp}`)
 		.run(err => {
 			t.ifError(err);
-			t.true(fs.existsSync(path.join(tmp, 'guetzli')));
+			t.true(executable.sync(path.join(tmp, 'guetzli')));
 			t.end();
 		});
 });
