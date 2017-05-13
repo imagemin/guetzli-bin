@@ -23,11 +23,9 @@ test.cb('rebuild the guetzli binaries', t => {
 		});
 });
 
-test.cb('return path to binary and verify that it is working', t => {
-	binCheck(guetzli, ['--version']).then(result => {
-		t.true(result);
-	});
-	t.end();
+test('return path to binary and verify that it is working', async t => {
+	const src = path.join(__dirname, 'fixtures/test.jpg');
+	t.true(await binCheck(guetzli, [src, '/dev/null']));
 });
 
 test('minify a JPG', async t => {
