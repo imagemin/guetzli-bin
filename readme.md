@@ -8,7 +8,7 @@ You probably want [`imagemin-guetzli`](https://github.com/imagemin/imagemin-guet
 ## Install
 
 ```
-$ npm install --save guetzli
+$ npm install guetzli
 ```
 
 
@@ -18,7 +18,7 @@ $ npm install --save guetzli
 const {execFile} = require('child_process');
 const guetzli = require('guetzli');
 
-execFile(guetzli, ['input.jpg', 'output.jpg'], err => {
+execFile(guetzli, ['input.jpg', 'output.jpg'], error => {
 	console.log('Image minified!');
 });
 ```

@@ -1,52 +1,47 @@
 {
-  "name": "guetzli",
-  "version": "1.0.1",
-  "description": "guetzli wrapper that makes it seamlessly available as a local dependency",
-  "license": "MIT",
-  "repository": "imagemin/guetzli-bin",
-  "author": {
-    "name": "Shogo Sensui",
-    "email": "shogo.sensui@gmail.com",
-    "url": "github.com/1000ch"
-  },
-  "bin": {
-    "guetzli": "cli.js"
-  },
-  "engines": {
-    "node": ">=6"
-  },
-  "scripts": {
-    "postinstall": "node lib/install.js",
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js",
-    "cli.js",
-    "lib"
-  ],
-  "keywords": [
-    "imagemin",
-    "guetzli",
-    "jpeg",
-    "jpg",
-    "img",
-    "image",
-    "compress",
-    "minify",
-    "optimize"
-  ],
-  "dependencies": {
-    "bin-build": "^3.0.0",
-    "bin-wrapper": "^4.0.0",
-    "logalot": "^2.1.0"
-  },
-  "devDependencies": {
-    "ava": "*",
-    "bin-check": "^4.0.1",
-    "compare-size": "^3.0.0",
-    "execa": "^1.0.0",
-    "executable": "^4.1.0",
-    "tempy": "^0.2.1",
-    "xo": "*"
-  }
+	"name": "guetzli",
+	"version": "1.0.1",
+	"description": "guetzli wrapper that makes it seamlessly available as a local dependency",
+	"license": "MIT",
+	"repository": "imagemin/guetzli-bin",
+	"bin": {
+		"guetzli": "cli.js"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"scripts": {
+		"postinstall": "node lib/install.js",
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js",
+		"cli.js",
+		"lib"
+	],
+	"keywords": [
+		"imagemin",
+		"guetzli",
+		"jpeg",
+		"jpg",
+		"img",
+		"image",
+		"compress",
+		"minify",
+		"optimize"
+	],
+	"dependencies": {
+		"bin-build": "^3.0.0",
+		"bin-wrapper": "^4.0.0",
+		"logalot": "^2.1.0"
+	},
+	"devDependencies": {
+		"ava": "^1.0.1",
+		"bin-check": "^4.0.1",
+		"compare-size": "^3.0.0",
+		"execa": "^1.0.0",
+		"executable": "^4.1.0",
+		"tempy": "^0.2.1",
+		"xo": "^0.23.0"
+	}
 }
