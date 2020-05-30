@@ -12,7 +12,7 @@ const guetzli = require('..');
 test('rebuild the guetzli binaries', async t => {
 	const temporary = tempy.directory();
 
-	await binBuild.url('https://github.com/google/guetzli/archive/v1.0.1.tar.gz', [
+	await binBuild.file(path.resolve(__dirname, '../vendor/source/guetzli-1.0.1.tar.gz'), [
 		`mkdir -p ${temporary}`,
 		`make && mv bin/Release/guetzli ${temporary}`
 	]);
