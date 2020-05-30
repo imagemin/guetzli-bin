@@ -10,14 +10,14 @@ const executable = require('executable');
 const guetzli = require('..');
 
 test('rebuild the guetzli binaries', async t => {
-	const tmp = tempy.directory();
+	const temporary = tempy.directory();
 
 	await binBuild.url('https://github.com/google/guetzli/archive/v1.0.1.tar.gz', [
-		`mkdir -p ${tmp}`,
-		`make && mv bin/Release/guetzli ${tmp}`
+		`mkdir -p ${temporary}`,
+		`make && mv bin/Release/guetzli ${temporary}`
 	]);
 
-	t.true(executable.sync(path.join(tmp, 'guetzli')));
+	t.true(executable.sync(path.join(temporary, 'guetzli')));
 });
 
 test('return path to binary and verify that it is working', async t => {
@@ -26,16 +26,16 @@ test('return path to binary and verify that it is working', async t => {
 });
 
 test('minify a JPG', async t => {
-	const tmp = tempy.directory();
+	const temporary = tempy.directory();
 	const src = path.join(__dirname, 'fixtures/test.jpg');
-	const dest = path.join(tmp, 'test.jpg');
+	const dest = path.join(temporary, 'test.jpg');
 	const args = [
 		src,
 		dest
 	];
 
 	await execa(guetzli, args);
-	const res = await compareSize(src, dest);
+	const result = await compareSize(src, dest);
 
-	t.true(res[dest] < res[src]);
+	t.true(result[dest] < result[src]);
 });
