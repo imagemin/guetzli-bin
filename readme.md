@@ -15,8 +15,8 @@ $ npm install guetzli
 ## Usage
 
 ```js
-const {execFile} = require('child_process');
-const guetzli = require('guetzli');
+import {execFile} from 'node:child_process';
+import guetzli from 'guetzli';
 
 execFile(guetzli, ['input.jpg', 'output.jpg'], error => {
 	console.log('Image minified!');

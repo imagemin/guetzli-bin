@@ -1,37 +1,38 @@
-'use strict';
-const path = require('path');
-const test = require('ava');
-const execa = require('execa');
-const tempy = require('tempy');
-const binCheck = require('bin-check');
-const binBuild = require('bin-build');
-const compareSize = require('compare-size');
-const executable = require('executable');
-const guetzli = require('..');
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import test from 'ava';
+import execa from 'execa';
+import tempy from 'tempy';
+import binCheck from 'bin-check';
+import binBuild from 'bin-build';
+import compareSize from 'compare-size';
+import executable from 'executable';
+import guetzli from '../index.js';
 
 test('rebuild the guetzli binaries', async t => {
 	const temporary = tempy.directory();
 
-	await binBuild.file(path.resolve(__dirname, '../vendor/source/guetzli-1.0.1.tar.gz'), [
+	const source = fileURLToPath(new URL('../vendor/source/guetzli-1.0.1.tar.gz', import.meta.url));
+	await binBuild.file(source, [
 		`mkdir -p ${temporary}`,
-		`make && mv bin/Release/guetzli ${temporary}`
+		`make && mv bin/Release/guetzli ${temporary}`,
 	]);
 
 	t.true(executable.sync(path.join(temporary, 'guetzli')));
 });
 
 test('return path to binary and verify that it is working', async t => {
-	const src = path.join(__dirname, 'fixtures/test.jpg');
+	const src = fileURLToPath(new URL('fixtures/test.jpg', import.meta.url));
 	t.true(await binCheck(guetzli, [src, '/dev/null']));
 });
 
 test('minify a JPG', async t => {
 	const temporary = tempy.directory();
-	const src = path.join(__dirname, 'fixtures/test.jpg');
+	const src = fileURLToPath(new URL('fixtures/test.jpg', import.meta.url));
 	const dest = path.join(temporary, 'test.jpg');
 	const args = [
 		src,
-		dest
+		dest,
 	];
 
 	await execa(guetzli, args);
