@@ -30,7 +30,9 @@ test('rebuild the guetzli binaries', async t => {
 
 test('return path to binary and verify that it is working', async t => {
 	const src = fileURLToPath(new URL('fixtures/test.jpg', import.meta.url));
-	t.true(await binCheck(guetzli, [src, '/dev/null']));
+	const dest = fileURLToPath(new URL('fixtures/dest.jpg', import.meta.url));
+
+	t.true(await binCheck(guetzli, [src, dest]));
 });
 
 test('minify a JPG', async t => {
