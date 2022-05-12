@@ -2,8 +2,8 @@ import path from 'node:path';
 import process from 'node:process';
 import {fileURLToPath} from 'node:url';
 import test from 'ava';
-import execa from 'execa';
-import tempy from 'tempy';
+import {execa} from 'execa';
+import {temporaryDirectory} from 'tempy';
 import binCheck from 'bin-check';
 import binBuild from 'bin-build';
 import compareSize from 'compare-size';
@@ -17,7 +17,7 @@ test('rebuild the guetzli binaries', async t => {
 		return;
 	}
 
-	const temporary = tempy.directory();
+	const temporary = temporaryDirectory();
 	const source = fileURLToPath(new URL('../vendor/source/guetzli-1.0.1.tar.gz', import.meta.url));
 
 	await binBuild.file(source, [
@@ -29,14 +29,15 @@ test('rebuild the guetzli binaries', async t => {
 });
 
 test('return path to binary and verify that it is working', async t => {
+	const temporary = temporaryDirectory();
 	const src = fileURLToPath(new URL('fixtures/test.jpg', import.meta.url));
-	const dest = fileURLToPath(new URL('fixtures/dest.jpg', import.meta.url));
+	const dest = path.join(temporary, 'test.jpg');
 
 	t.true(await binCheck(guetzli, [src, dest]));
 });
 
 test('minify a JPG', async t => {
-	const temporary = tempy.directory();
+	const temporary = temporaryDirectory();
 	const src = fileURLToPath(new URL('fixtures/test.jpg', import.meta.url));
 	const dest = path.join(temporary, 'test.jpg');
 	const args = [
