@@ -20,7 +20,8 @@
 		"index.js",
 		"cli.js",
 		"lib",
-		"vendor/source"
+		"vendor/source",
+		"test/fixtures"
 	],
 	"keywords": [
 		"imagemin",
